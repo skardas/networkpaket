@@ -5,23 +5,24 @@
  */
 package com.komut;
 
+import com.kimlik.Kisi;
+
 /**
  *
- * @author skard
+ * @author skardas
  */
-public class OturumAcma extends Komut {
+public class KayitEkle extends Komut {
 
-    public String kullaniciAdi;
-    public String parola;
+    public Kisi kisi;
 
-    public OturumAcma(String kullaniciAdi, String parola) {
+    public KayitEkle(Kisi kisi) {
         super(null, null);
-        this.kullaniciAdi = kullaniciAdi;
-        this.parola = parola;
+        this.kisi = kisi;
     }
 
     @Override
     public void calistir(KomutYorumla kmt) {
-        kmt.oturumAcmaKomutuYonet(this);
+        kmt.kisiEkleYonet(this);
     }
+
 }

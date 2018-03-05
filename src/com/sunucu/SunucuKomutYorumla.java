@@ -10,6 +10,7 @@ import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
+import com.komut.KayitEkle;
 import com.komut.OturumAcma;
 import com.komut.Mesaj;
 import com.komut.Ses;
@@ -29,28 +30,23 @@ public class SunucuKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void oturumAcmaKomutuYonet(OturumAcma oturumAcma) 
-    {
+    public void oturumAcmaKomutuYonet(OturumAcma oturumAcma) {
         System.out.println("oturumAcmaKomutuYonet:");
         OturumAcma cvp = new OturumAcma(null, null);
-        if (KimlikYonetici.getInstance().isDogrula(oturumAcma.kullaniciAdi, oturumAcma.parola)) 
-        {
+        if (KimlikYonetici.getInstance().isDogrula(oturumAcma.kullaniciAdi, oturumAcma.parola)) {
             yonetici.kullaniciEkle(oturumAcma);
             cvp.kullaniciAdi = oturumAcma.kullaniciAdi;
             cvp.isBasarili = true;
             yonetici.komutuBanaGonder(cvp);
-            
 
-        } 
-        else 
-        {
+        } else {
             cvp.isBasarili = false;
             cvp.cevap = "Kullanıcı adı ve/veya parolayı hatalıdır";
             yonetici.komutuBekleyenListedenBanaGonder(cvp);
 
         }
-        yonetici.ekranaMesajEkle(cvp.isBasarili ? oturumAcma.kullaniciAdi + " doğrulandı." : "Kullanıcı adı ve/veya parola hatalı girişim!" );
-        
+        yonetici.ekranaMesajEkle(cvp.isBasarili ? oturumAcma.kullaniciAdi + " doğrulandı." : "Kullanıcı adı ve/veya parola hatalı girişim!");
+
     }
 
     @Override
@@ -65,8 +61,7 @@ public class SunucuKomutYorumla implements KomutYorumla {
 
     @Override
     public void mesajKomutuYonet(Mesaj mesaj) {
-        try 
-        {
+        try {
             yonetici.komutuBenHaricHerkeseGonder(mesaj);
             yonetici.sunucuEkran.ekranaMesajEkle(mesaj.toString());
         } catch (IOException ex) {
@@ -87,6 +82,10 @@ public class SunucuKomutYorumla implements KomutYorumla {
     @Override
     public void elsikismaKomutuYonet(ElSikisma elSikisma) {
 
+    }
+
+    @Override
+    public void kisiEkleYonet(KayitEkle kayit) {
     }
 
 }

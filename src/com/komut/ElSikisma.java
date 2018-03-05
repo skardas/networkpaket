@@ -9,7 +9,7 @@ package com.komut;
  *
  * @author skardas
  */
-public class ElSikisma extends Komut{
+public class ElSikisma extends Komut {
 
     public ElSikisma(String seriNo) {
         super(null, null);
@@ -20,5 +20,5 @@ public class ElSikisma extends Komut{
     public void calistir(KomutYorumla kmt) {
         kmt.elsikismaKomutuYonet(this);
     }
-    
+
 }

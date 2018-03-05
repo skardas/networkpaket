@@ -27,4 +27,6 @@ public interface KomutYorumla extends Serializable {
 
     public void elsikismaKomutuYonet(ElSikisma elSikisma);
 
+    public void kisiEkleYonet(KayitEkle aThis);
+
 }

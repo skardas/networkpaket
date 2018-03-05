@@ -45,8 +45,7 @@ public class SunucuKontrol extends Thread {
 
     @Override
     public void run() {
-        try 
-        {
+        try {
             serverSocket = new ServerSocket(sunucuPort);
             ekranaMesajEkle("Sunucu dinlemeye başladı...");
         } catch (Exception e) {
@@ -54,13 +53,12 @@ public class SunucuKontrol extends Thread {
             isDurduruldu = true;
         }
         while (!isStopped()) {
-            try 
-            {
+            try {
                 Socket socket = serverSocket.accept();
                 ObjectOutputStream cikis = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream giris = new ObjectInputStream(socket.getInputStream());
-                
-                ElSikisma elSikisma = new ElSikisma(""+Math.random());
+
+                ElSikisma elSikisma = new ElSikisma("" + Math.random());
                 cikis.writeObject(elSikisma);
                 cikis.flush();
 
@@ -75,10 +73,10 @@ public class SunucuKontrol extends Thread {
         ekranaMesajEkle("Sunucu durduruldu.");
     }
 
-    public synchronized void ekranaMesajEkle (String mesaj)
-    {
+    public synchronized void ekranaMesajEkle(String mesaj) {
         sunucuEkran.ekranaMesajEkle(mesaj);
     }
+
     private synchronized boolean isStopped() {
         return this.isDurduruldu;
     }
@@ -109,11 +107,9 @@ public class SunucuKontrol extends Thread {
         }
     }
 
-    public synchronized void komutuBanaGonder(OturumAcma cvp) 
-    {
-       Kullanici kullanici = dogrulananKullanicilar.get(cvp.kullaniciAdi);
-        try 
-        {
+    public synchronized void komutuBanaGonder(OturumAcma cvp) {
+        Kullanici kullanici = dogrulananKullanicilar.get(cvp.kullaniciAdi);
+        try {
             kullanici.komutuGonder(cvp);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -128,8 +124,7 @@ public class SunucuKontrol extends Thread {
 
     void komutuBekleyenListedenBanaGonder(OturumAcma cvp) {
         Kullanici kullanici = bekleyenKullanicilar.get(cvp.seriNo);
-        try 
-        {
+        try {
             kullanici.komutuGonder(cvp);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -151,17 +146,13 @@ public class SunucuKontrol extends Thread {
         @Override
         public void run() {
             Object komut = null;
-            try 
-            {
-                while ((komut = giris.readObject()) != null) 
-                {
+            try {
+                while ((komut = giris.readObject()) != null) {
                     System.out.println(komut.getClass().getCanonicalName());
                     ((Komut) komut).calistir(yorumlayici);
-                    
+
                 }
-            } 
-            catch (Exception e) 
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

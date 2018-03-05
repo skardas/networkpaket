@@ -21,7 +21,7 @@ public abstract class Komut implements Serializable {
     public Date zaman;
     public boolean isBasarili = false;
     public String cevap = null;
-    
+
     public Komut(String kimden, String kime) {
         this.kimden = kimden;
         this.kime = kime;

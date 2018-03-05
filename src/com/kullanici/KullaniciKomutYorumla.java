@@ -9,10 +9,11 @@ import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
-import com.komut.OturumAcma;
-import com.komut.Mesaj;
-import com.komut.Ses;
+import com.komut.KayitEkle;
 import com.komut.KomutYorumla;
+import com.komut.Mesaj;
+import com.komut.OturumAcma;
+import com.komut.Ses;
 
 /**
  *
@@ -22,22 +23,20 @@ public class KullaniciKomutYorumla implements KomutYorumla {
 
     public static String SeriNo = null;
     KullaniciKontrol yonetici;
+
     public KullaniciKomutYorumla(KullaniciKontrol yonetici) {
         this.yonetici = yonetici;
     }
 
     @Override
     public void oturumAcmaKomutuYonet(OturumAcma login) {
-        if(login.isBasarili)
-        {
+        if (login.isBasarili) {
             yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, "Oturumu başarılı bir şekilde açtınız."));
             yonetici.kullaniciAdi = login.kullaniciAdi;
-        }
-        else
-        {
+        } else {
             yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, login.cevap));
         }
-     }
+    }
 
     @Override
     public void sesKomutuYonet(Ses ses) {
@@ -67,6 +66,11 @@ public class KullaniciKomutYorumla implements KomutYorumla {
     @Override
     public void elsikismaKomutuYonet(ElSikisma elSikisma) {
         KullaniciKomutYorumla.SeriNo = elSikisma.seriNo;
+    }
+
+    @Override
+    public void kisiEkleYonet(KayitEkle kayit) {
+
     }
 
 }

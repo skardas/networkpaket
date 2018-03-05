@@ -12,23 +12,21 @@ package com.kimlik;
 public class KimlikYonetici {
 
     private static KimlikYonetici kimlikYonetici;
-    public static KimlikYonetici getInstance()
-    {
-        if(kimlikYonetici == null)
-        {
+
+    public static KimlikYonetici getInstance() {
+        if (kimlikYonetici == null) {
             kimlikYonetici = new KimlikYonetici();
         }
         return kimlikYonetici;
     }
+
     private KimlikYonetici() {
-        
+
     }
 
     public boolean isDogrula(String kullaniciAdi, String parola) {
 
         return true;
     }
-    
-    
-    
+
 }
