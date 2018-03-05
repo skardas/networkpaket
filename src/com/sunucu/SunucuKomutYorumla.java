@@ -30,12 +30,13 @@ public class SunucuKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void oturumAcmaKomutuYonet(OturumAcma oturumAcma) {
-        System.out.println("oturumAcmaKomutuYonet:");
+    public void oturumAcmaKomutuYonet(OturumAcma oturumAcma) 
+    {
         OturumAcma cvp = new OturumAcma(null, null);
         if (KimlikYonetici.getInstance().isDogrula(oturumAcma.kullaniciAdi, oturumAcma.parola)) {
-            yonetici.kullaniciEkle(oturumAcma);
+            yonetici.kullaniciCevrimiciListeyeEkle(oturumAcma.seriNo, oturumAcma.kullaniciAdi);
             cvp.kullaniciAdi = oturumAcma.kullaniciAdi;
+            cvp.kimden = oturumAcma.kullaniciAdi;
             cvp.isBasarili = true;
             yonetici.komutuBanaGonder(cvp);
 
@@ -86,6 +87,22 @@ public class SunucuKomutYorumla implements KomutYorumla {
 
     @Override
     public void kisiEkleYonet(KayitEkle kayit) {
+        KayitEkle cevap = new KayitEkle(kayit.kisi);
+        KimlikYonetici ky = KimlikYonetici.getInstance();
+        if (!ky.isKisiVar(kayit.kisi.kullaniciAdi)) 
+        {
+            ky.kisiEkle(kayit.kisi);
+            cevap.isBasarili = true;
+            cevap.kimden = kayit.kisi.kullaniciAdi;
+            yonetici.kullaniciCevrimiciListeyeEkle(kayit.seriNo ,kayit.kisi.kullaniciAdi);
+            yonetici.komutuBanaGonder(cevap);
+        } 
+        else 
+        {
+            cevap.isBasarili = false;
+            cevap.cevap = "Böyle bir kullanıcı zaten kullanılmaktadır.";
+            yonetici.komutuBekleyenListedenBanaGonder(cevap);
+        }
     }
 
 }

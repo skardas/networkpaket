@@ -19,6 +19,7 @@ public class Kisi implements Serializable {
     public String soyadi;
     public String telefon;
     public String email;
+    public boolean isCevrimici = false;
 
     public Kisi(String kullaniciAdi, String parola, String ad, String soyadi, String telefon, String email) {
         this.kullaniciAdi = kullaniciAdi;

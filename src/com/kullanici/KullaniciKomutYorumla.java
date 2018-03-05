@@ -69,8 +69,14 @@ public class KullaniciKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void kisiEkleYonet(KayitEkle kayit) {
-
+    public void kisiEkleYonet(KayitEkle kayit) 
+    {
+        if (kayit.isBasarili) {
+            yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, "Kaydınız başarılı bir şekilde yapıldı."));
+            yonetici.kullaniciAdi = kayit.kisi.kullaniciAdi;
+        } else {
+            yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, kayit.cevap));
+        }
     }
 
 }

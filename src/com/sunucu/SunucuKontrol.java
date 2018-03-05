@@ -19,8 +19,6 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.komut.KomutYorumla;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -107,8 +105,8 @@ public class SunucuKontrol extends Thread {
         }
     }
 
-    public synchronized void komutuBanaGonder(OturumAcma cvp) {
-        Kullanici kullanici = dogrulananKullanicilar.get(cvp.kullaniciAdi);
+    public synchronized void komutuBanaGonder(Komut cvp) {
+        Kullanici kullanici = dogrulananKullanicilar.get(cvp.kimden);
         try {
             kullanici.komutuGonder(cvp);
         } catch (IOException ex) {
@@ -116,13 +114,13 @@ public class SunucuKontrol extends Thread {
         }
     }
 
-    public synchronized void kullaniciEkle(OturumAcma oturumAcma) {
-        Kullanici kullanici = bekleyenKullanicilar.remove(oturumAcma.seriNo);
-        kullanici.kullaniciAdi = oturumAcma.kullaniciAdi;
-        dogrulananKullanicilar.put(oturumAcma.kullaniciAdi, kullanici);
+    public synchronized void kullaniciCevrimiciListeyeEkle(String seriNo, String kullaniciAdi) {
+        Kullanici kullanici = bekleyenKullanicilar.remove(seriNo);
+        kullanici.kullaniciAdi = kullaniciAdi;
+        dogrulananKullanicilar.put(kullaniciAdi, kullanici);
     }
 
-    void komutuBekleyenListedenBanaGonder(OturumAcma cvp) {
+    void komutuBekleyenListedenBanaGonder(Komut cvp) {
         Kullanici kullanici = bekleyenKullanicilar.get(cvp.seriNo);
         try {
             kullanici.komutuGonder(cvp);
