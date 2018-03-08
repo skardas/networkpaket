@@ -61,4 +61,8 @@ public class KullaniciKontrol extends Thread {
         cikis.flush();
     }
 
+    void ekranaEkle(String msj) {
+        ekran.ekranaMesajEkle(new Mesaj("", "", msj));
+    }
+
 }

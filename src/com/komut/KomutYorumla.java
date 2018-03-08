@@ -31,4 +31,6 @@ public interface KomutYorumla extends Serializable {
 
     public void kisiListemiGetirYonet(KisiListemiGetir aThis);
 
+    public void arkadasEklemeYonet(ArkadasEkleme aThis);
+
 }

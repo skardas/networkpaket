@@ -6,11 +6,14 @@
 package com.sunucu;
 
 import com.kimlik.KimlikYonetici;
+import com.kimlik.Kisi;
+import com.komut.ArkadasEkleme;
 import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
 import com.komut.KayitEkle;
+import com.komut.KisiListemiGetir;
 import com.komut.OturumAcma;
 import com.komut.Mesaj;
 import com.komut.Ses;
@@ -72,13 +75,11 @@ public class SunucuKomutYorumla implements KomutYorumla {
 
     @Override
     public void hamleKomutuYonet(Hamle hamle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     }
 
     @Override
     public void dosyaKomutuYonet(Dosya dosya) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     }
 
     @Override
     public void elsikismaKomutuYonet(ElSikisma elSikisma) {
@@ -103,6 +104,27 @@ public class SunucuKomutYorumla implements KomutYorumla {
             cevap.cevap = "Böyle bir kullanıcı zaten kullanılmaktadır.";
             yonetici.komutuBekleyenListedenBanaGonder(cevap);
         }
+    }
+
+    @Override
+    public void kisiListemiGetirYonet(KisiListemiGetir klg) {
+        Kisi kisi = KimlikYonetici.getInstance().kisiGetir(klg.kimden);
+        KisiListemiGetir cvp = new KisiListemiGetir(klg.kimden, klg.kime);
+        cvp.kisilerim.addAll(kisi.arkadaslar);
+        yonetici.komutuBanaGonder(cvp);
+    }
+
+    @Override
+    public void arkadasEklemeYonet(ArkadasEkleme ae) 
+    {
+       String sonuc  = KimlikYonetici.getInstance().arkadasEkleme(ae);
+
+       ArkadasEkleme cvp = new ArkadasEkleme(ae.kimden, ae.islemYapilacakKullaniciAdi, ae.isEklenecek);
+       cvp.isBasarili = (sonuc == null);
+       cvp.cevap = sonuc;
+       
+       yonetici.komutuBanaGonder(cvp);
+         
     }
 
 }

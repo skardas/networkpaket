@@ -6,6 +6,7 @@
 package com.kimlik;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +21,8 @@ public class Kisi implements Serializable {
     public String telefon;
     public String email;
     public boolean isCevrimici = false;
+    
+    public ArrayList<String> arkadaslar;
 
     public Kisi(String kullaniciAdi, String parola, String ad, String soyadi, String telefon, String email) {
         this.kullaniciAdi = kullaniciAdi;
@@ -28,6 +31,22 @@ public class Kisi implements Serializable {
         this.soyadi = soyadi;
         this.telefon = telefon;
         this.email = email;
+        arkadaslar = new ArrayList<>();
+    }
+
+    boolean hasArkadas(String arkadas) {
+        return arkadaslar.contains(arkadas);
+    }
+
+    void arkadasiListemeEkle(String arkadas) {
+        arkadaslar.add(arkadas);
+        KimlikYonetici.getInstance().kisileriKaydet();
+    }
+
+    void arkadasiListemdenCikar(String arkadas) {
+        arkadaslar.remove(arkadas);
+        KimlikYonetici.getInstance().kisileriKaydet();
+
     }
 
 }

@@ -5,14 +5,12 @@
  */
 package com.kimlik;
 
+import com.komut.ArkadasEkleme;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -70,7 +68,7 @@ public class KimlikYonetici
             ex.printStackTrace();
         }
     }
-    private void kisileriKaydet() {
+    public void kisileriKaydet() {
         ObjectOutputStream cikti;
         try 
         {
@@ -88,6 +86,37 @@ public class KimlikYonetici
 
     public boolean isKisiVar(String kullaniciAdi) {
         return kisiler.containsKey(kullaniciAdi);
+    }
+
+    public String arkadasEkleme(ArkadasEkleme ae) {
+        if(!kisiler.containsKey(ae.islemYapilacakKullaniciAdi))
+        {
+            return "Böyle bir kişi bulunamadı";
+        }
+        Kisi kisi = kisiler.get(ae.kimden);
+        if(ae.isEklenecek)
+        {
+            if(!kisi.hasArkadas(ae.islemYapilacakKullaniciAdi))
+            {
+                kisi.arkadasiListemeEkle(ae.islemYapilacakKullaniciAdi);
+            }
+            else
+                return "Bu arkadaşa zaten sahipsiniz.";
+        }
+        else
+        {
+            if(kisi.hasArkadas(ae.islemYapilacakKullaniciAdi))
+            {
+                kisi.arkadasiListemdenCikar(ae.islemYapilacakKullaniciAdi);
+            }
+            else
+                return "Bu arkadaşa zaten sahip degilsiniz.";
+        }
+        return null;
+    }
+
+    public Kisi kisiGetir(String kimden) {
+        return kisiler.get(kimden);
     }
     
     

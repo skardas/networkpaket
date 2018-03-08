@@ -5,11 +5,13 @@
  */
 package com.kullanici;
 
+import com.komut.ArkadasEkleme;
 import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
 import com.komut.KayitEkle;
+import com.komut.KisiListemiGetir;
 import com.komut.KomutYorumla;
 import com.komut.Mesaj;
 import com.komut.OturumAcma;
@@ -69,14 +71,39 @@ public class KullaniciKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void kisiEkleYonet(KayitEkle kayit) 
-    {
+    public void kisiEkleYonet(KayitEkle kayit) {
         if (kayit.isBasarili) {
             yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, "Kaydınız başarılı bir şekilde yapıldı."));
             yonetici.kullaniciAdi = kayit.kisi.kullaniciAdi;
         } else {
             yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, kayit.cevap));
         }
+    }
+
+    @Override
+    public void kisiListemiGetirYonet(KisiListemiGetir klg) {
+        yonetici.ekranaEkle(klg.kisilerim.toString());
+    }
+
+    @Override
+    public void arkadasEklemeYonet(ArkadasEkleme ae) {
+        if (ae.isEklenecek) {
+            if (ae.isBasarili) {
+                yonetici.ekranaEkle(ae.islemYapilacakKullaniciAdi + " kişisi listenize eklendi.");
+            } else {
+                yonetici.ekranaEkle(ae.islemYapilacakKullaniciAdi + " kişisi listenize eklenemedi. " + ae.cevap);
+
+            }
+        } else {
+            if (ae.isBasarili) {
+                yonetici.ekranaEkle(ae.islemYapilacakKullaniciAdi + " kişisi listenizden çıkarıldı.");
+
+            } else {
+                yonetici.ekranaEkle(ae.islemYapilacakKullaniciAdi + " kişisi listenizden çıkarılamadı.  " + ae.cevap);
+
+            }
+        }
+
     }
 
 }

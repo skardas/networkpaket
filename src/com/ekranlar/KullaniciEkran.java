@@ -6,7 +6,9 @@
 package com.ekranlar;
 
 import com.kimlik.Kisi;
+import com.komut.ArkadasEkleme;
 import com.komut.KayitEkle;
+import com.komut.KisiListemiGetir;
 import com.komut.Mesaj;
 import com.komut.OturumAcma;
 import com.kullanici.KullaniciKontrol;
@@ -176,12 +178,27 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
         jPanel3.add(jButton4);
 
         jButton5.setText("Kisi Listesi İste");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton5);
 
-        jButton7.setText("Kisi Ekle");
+        jButton7.setText("Arkadas Ekle");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7);
 
-        jButton8.setText("Kisi Sil");
+        jButton8.setText("Arkadas Sil");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton8);
 
         jButton9.setText("Kisiye Baglan");
@@ -297,6 +314,54 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        JTextField field1 = new JTextField();
+        Object[] message = {
+            "Kullanici Adi:", field1,
+             };
+        int option = JOptionPane.showConfirmDialog(this, message, "Eklemek İstediğiniz Arkadaşın Kullanici Adını Giriniz", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String arkadasKullaniciAdi = field1.getText();
+            try 
+            {
+                kullaniciYonetici.komutuGonder(new ArkadasEkleme(kullaniciYonetici.kullaniciAdi,arkadasKullaniciAdi, true));
+            } catch (Exception e) {
+                jEditorPane1.setText(jEditorPane1.getText() + "\n" + e.getMessage());
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         if (kullaniciYonetici != null && kullaniciYonetici.isAlive()) {
+            try {
+                kullaniciYonetici.komutuGonder(new KisiListemiGetir(kullaniciYonetici.kullaniciAdi, kullaniciYonetici.kullaniciAdi));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        JTextField field1 = new JTextField();
+        Object[] message = {
+            "Kullanici Adi:", field1,
+             };
+        int option = JOptionPane.showConfirmDialog(this, message, "Silmek İstediğiniz Arkadaşın Kullanici Adını Giriniz", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String arkadasKullaniciAdi = field1.getText();
+            try 
+            {
+                kullaniciYonetici.komutuGonder(new ArkadasEkleme(kullaniciYonetici.kullaniciAdi,arkadasKullaniciAdi, false));
+            } catch (Exception e) {
+                jEditorPane1.setText(jEditorPane1.getText() + "\n" + e.getMessage());
+            }
+        }
+      
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
