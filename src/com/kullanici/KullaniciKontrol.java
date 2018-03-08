@@ -52,7 +52,7 @@ public class KullaniciKontrol extends Thread {
                 komut.calistir(yorumlayici);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
