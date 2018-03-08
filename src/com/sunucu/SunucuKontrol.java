@@ -127,9 +127,9 @@ public class SunucuKontrol extends Thread {
         try 
         {
             kullanici.close();
+            KimlikYonetici.getInstance().setCevrimici(kullaniciAdi,false);
         } catch (Exception e) {
         }
-        KimlikYonetici.getInstance().setCevrimici(kullaniciAdi,false);
     }
 
     void komutuBekleyenListedenBanaGonder(Komut cvp) {
@@ -166,7 +166,7 @@ public class SunucuKontrol extends Thread {
 
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
         }
 
