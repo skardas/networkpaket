@@ -12,7 +12,7 @@ import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
-import com.komut.KayitEkle;
+import com.komut.KullaniciKayitEkle;
 import com.komut.KisiListemiGetir;
 import com.komut.OturumAcma;
 import com.komut.Mesaj;
@@ -87,16 +87,17 @@ public class SunucuKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void kisiEkleYonet(KayitEkle kayit) {
-        KayitEkle cevap = new KayitEkle(kayit.kisi);
+    public void kullaniciKayitEkleYonet(KullaniciKayitEkle kayit) {
+        KullaniciKayitEkle cevap = new KullaniciKayitEkle(kayit.kisi);
         KimlikYonetici ky = KimlikYonetici.getInstance();
+        System.out.println(kayit);
         if (!ky.isKisiVar(kayit.kisi.kullaniciAdi)) 
         {
             ky.kisiEkle(kayit.kisi);
             cevap.isBasarili = true;
             cevap.kimden = kayit.kisi.kullaniciAdi;
-            yonetici.kullaniciCevrimiciListeyeEkle(kayit.seriNo ,kayit.kisi.kullaniciAdi);
-            yonetici.komutuBanaGonder(cevap);
+            //yonetici.kullaniciCevrimiciListeyeEkle(kayit.seriNo ,kayit.kisi.kullaniciAdi);
+            yonetici.komutuBekleyenListedenBanaGonder(cevap);
         } 
         else 
         {
