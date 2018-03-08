@@ -6,6 +6,7 @@
 package com.sunucu;
 
 import com.ekranlar.SunucuEkran;
+import com.kimlik.KimlikYonetici;
 import com.komut.ElSikisma;
 import com.komut.Komut;
 import com.komut.OturumAcma;
@@ -118,6 +119,7 @@ public class SunucuKontrol extends Thread {
         Kullanici kullanici = bekleyenKullanicilar.remove(seriNo);
         kullanici.kullaniciAdi = kullaniciAdi;
         dogrulananKullanicilar.put(kullaniciAdi, kullanici);
+        KimlikYonetici.getInstance().setCevrimici(kullaniciAdi,true);
     }
 
     void komutuBekleyenListedenBanaGonder(Komut cvp) {
@@ -143,11 +145,14 @@ public class SunucuKontrol extends Thread {
 
         @Override
         public void run() {
-            Object komut = null;
+            Komut komut = null;
             try {
-                while ((komut = giris.readObject()) != null) {
-                    System.out.println(komut.getClass().getCanonicalName());
-                    ((Komut) komut).calistir(yorumlayici);
+                while ((komut = (Komut)giris.readObject()) != null) {
+                    if((komut instanceof ElSikisma || komut instanceof OturumAcma)
+                            || KimlikYonetici.getInstance().isCevrimici(komut.kimden))
+                    {
+                        komut.calistir(yorumlayici);
+                    }
 
                 }
             } catch (Exception e) {

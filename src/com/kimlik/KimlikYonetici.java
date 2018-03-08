@@ -6,6 +6,7 @@
 package com.kimlik;
 
 import com.komut.ArkadasEkleme;
+import com.komut.Komut;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -117,6 +118,14 @@ public class KimlikYonetici
 
     public Kisi kisiGetir(String kimden) {
         return kisiler.get(kimden);
+    }
+
+    public boolean isCevrimici(String kimden) {
+        return kisiler.get(kimden).isCevrimici;
+    }
+
+    public void setCevrimici(String kullaniciAdi, boolean b) {
+        kisiler.get(kullaniciAdi).isCevrimici = b;
     }
     
     
