@@ -10,7 +10,7 @@ import com.komut.Dosya;
 import com.komut.ElSikisma;
 import com.komut.Goruntu;
 import com.komut.Hamle;
-import com.komut.KayitEkle;
+import com.komut.KullaniciKayitEkle;
 import com.komut.KisiListemiGetir;
 import com.komut.KomutYorumla;
 import com.komut.Mesaj;
@@ -71,7 +71,7 @@ public class KullaniciKomutYorumla implements KomutYorumla {
     }
 
     @Override
-    public void kisiEkleYonet(KayitEkle kayit) {
+    public void kullaniciKayitEkleYonet(KullaniciKayitEkle kayit) {
         if (kayit.isBasarili) {
             yonetici.ekran.ekranaMesajEkle(new Mesaj("Sunucu", null, "Kaydınız başarılı bir şekilde yapıldı."));
             yonetici.kullaniciAdi = kayit.kisi.kullaniciAdi;

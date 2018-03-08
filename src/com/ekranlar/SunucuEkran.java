@@ -1,17 +1,11 @@
 package com.ekranlar;
 
 import com.ekranlar.KullaniciEkran;
-import com.komut.Goruntu;
 import com.komut.Mesaj;
 import com.sunucu.SunucuKontrol;
-import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

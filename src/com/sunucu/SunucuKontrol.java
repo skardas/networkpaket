@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.komut.KomutYorumla;
+import com.komut.KullaniciKayitEkle;
 
 /**
  *
@@ -121,6 +122,15 @@ public class SunucuKontrol extends Thread {
         dogrulananKullanicilar.put(kullaniciAdi, kullanici);
         KimlikYonetici.getInstance().setCevrimici(kullaniciAdi,true);
     }
+    public synchronized void kullaniciCevrimiciListedenCikar(String kullaniciAdi) {
+        Kullanici kullanici = dogrulananKullanicilar.remove(kullaniciAdi);
+        try 
+        {
+            kullanici.close();
+        } catch (Exception e) {
+        }
+        KimlikYonetici.getInstance().setCevrimici(kullaniciAdi,false);
+    }
 
     void komutuBekleyenListedenBanaGonder(Komut cvp) {
         Kullanici kullanici = bekleyenKullanicilar.get(cvp.seriNo);
@@ -137,7 +147,7 @@ public class SunucuKontrol extends Thread {
         ObjectOutputStream cikis;
         ObjectInputStream giris;
         String kullaniciAdi;
-
+        public boolean isDurduruldu = false;
         public Kullanici(ObjectOutputStream cikis, ObjectInputStream giris) throws IOException {
             this.giris = giris;
             this.cikis = cikis;
@@ -145,10 +155,10 @@ public class SunucuKontrol extends Thread {
 
         @Override
         public void run() {
-            Komut komut = null;
+            Komut komut;
             try {
-                while ((komut = (Komut)giris.readObject()) != null) {
-                    if((komut instanceof ElSikisma || komut instanceof OturumAcma)
+                while ((komut = (Komut)giris.readObject()) != null && !isDurduruldu) {
+                    if((komut instanceof ElSikisma || komut instanceof OturumAcma || komut instanceof KullaniciKayitEkle)
                             || KimlikYonetici.getInstance().isCevrimici(komut.kimden))
                     {
                         komut.calistir(yorumlayici);
@@ -162,8 +172,10 @@ public class SunucuKontrol extends Thread {
 
         public void close() {
             try {
+                isDurduruldu = true;
                 giris.close();
                 cikis.close();
+                
             } catch (Exception e) {
             }
         }

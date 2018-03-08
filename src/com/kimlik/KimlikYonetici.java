@@ -6,7 +6,7 @@
 package com.kimlik;
 
 import com.komut.ArkadasEkleme;
-import com.komut.Komut;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -62,6 +62,7 @@ public class KimlikYonetici
         ObjectInputStream girdi;
         try 
         {
+            if(!new File("kisiler.obj").exists()) return;
             girdi = new ObjectInputStream(new FileInputStream("kisiler.obj"));
             kisiler = (HashMap<String, Kisi>) girdi.readObject();
             girdi.close();
@@ -120,7 +121,9 @@ public class KimlikYonetici
         return kisiler.get(kimden);
     }
 
-    public boolean isCevrimici(String kimden) {
+    public boolean isCevrimici(String kimden) 
+    {
+        if(kimden == null || kisiler.get(kimden) == null) return false;
         return kisiler.get(kimden).isCevrimici;
     }
 

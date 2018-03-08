@@ -35,7 +35,13 @@ public class SunucuKomutYorumla implements KomutYorumla {
     @Override
     public void oturumAcmaKomutuYonet(OturumAcma oturumAcma) 
     {
-        OturumAcma cvp = new OturumAcma(null, null);
+        if(!oturumAcma.isAcma)
+        {
+            yonetici.kullaniciCevrimiciListedenCikar(oturumAcma.kullaniciAdi);
+            //oturum kapatma
+            return;
+        }
+        OturumAcma cvp = new OturumAcma(null, null, oturumAcma.isAcma);
         if (KimlikYonetici.getInstance().isDogrula(oturumAcma.kullaniciAdi, oturumAcma.parola)) {
             yonetici.kullaniciCevrimiciListeyeEkle(oturumAcma.seriNo, oturumAcma.kullaniciAdi);
             cvp.kullaniciAdi = oturumAcma.kullaniciAdi;

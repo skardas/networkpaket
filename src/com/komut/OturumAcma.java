@@ -13,11 +13,12 @@ public class OturumAcma extends Komut {
 
     public String kullaniciAdi;
     public String parola;
-
-    public OturumAcma(String kullaniciAdi, String parola) {
-        super(null, null);
+    public boolean isAcma;
+    public OturumAcma(String kullaniciAdi, String parola, boolean isAcma) {
+        super(kullaniciAdi, null);
         this.kullaniciAdi = kullaniciAdi;
         this.parola = parola;
+        this.isAcma = isAcma;
     }
 
     @Override

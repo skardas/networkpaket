@@ -7,7 +7,7 @@ package com.ekranlar;
 
 import com.kimlik.Kisi;
 import com.komut.ArkadasEkleme;
-import com.komut.KayitEkle;
+import com.komut.KullaniciKayitEkle;
 import com.komut.KisiListemiGetir;
 import com.komut.Mesaj;
 import com.komut.OturumAcma;
@@ -205,6 +205,11 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
         jPanel3.add(jButton9);
 
         jButton6.setText("Cikis");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton6);
 
         jScrollPane2.setViewportView(jPanel3);
@@ -271,7 +276,7 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
             String kullaniciAdi = field1.getText();
             String parola = field2.getText();
             try {
-                kullaniciYonetici.komutuGonder(new OturumAcma(kullaniciAdi, parola));
+                kullaniciYonetici.komutuGonder(new OturumAcma(kullaniciAdi, parola, true));
             } catch (Exception e) {
                 jEditorPane1.setText(jEditorPane1.getText() + "\n" + e.getMessage());
             }
@@ -307,7 +312,7 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
             String email = field6.getText();
             Kisi kisi = new Kisi(kullaniciAdi, parola, ad, soyad, telefon, email);
             try {
-                kullaniciYonetici.komutuGonder(new KayitEkle(kisi));
+                kullaniciYonetici.komutuGonder(new KullaniciKayitEkle(kisi));
             } catch (Exception e) {
                 jEditorPane1.setText(jEditorPane1.getText() + "\n" + e.getMessage());
             }
@@ -362,6 +367,15 @@ public class KullaniciEkran extends javax.swing.JFrame implements WindowListener
         }
       
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try {
+                kullaniciYonetici.komutuGonder(new OturumAcma(kullaniciYonetici.kullaniciAdi, null, false));
+            } catch (Exception e) {
+                jEditorPane1.setText(jEditorPane1.getText() + "\n" + e.getMessage());
+            }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -11,18 +11,18 @@ import com.kimlik.Kisi;
  *
  * @author skardas
  */
-public class KayitEkle extends Komut {
+public class KullaniciKayitEkle extends Komut {
 
     public Kisi kisi;
 
-    public KayitEkle(Kisi kisi) {
+    public KullaniciKayitEkle(Kisi kisi) {
         super(null, null);
         this.kisi = kisi;
     }
 
     @Override
     public void calistir(KomutYorumla kmt) {
-        kmt.kisiEkleYonet(this);
+        kmt.kullaniciKayitEkleYonet(this);
     }
 
 }
